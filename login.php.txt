@@ -1,0 +1,19 @@
+<php 
+
+
+if(isset($_POST['login'])){
+    include("./database/data.php");
+    $email = $_POST["email"];
+$password = $_POST["password"];
+    $sql = "SELECT * FROM usernames WHERE email='$email'";
+    $response = mysqli_query($joindata, $sql);
+    $result = mysqli_fetch_assoc($response);
+
+    if($result){
+        print_r($result);
+    }else{
+        echo "Account does not exist";
+    }
+
+}
+?>
