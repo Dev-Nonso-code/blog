@@ -34,6 +34,7 @@ $email = mysqli_escape_string($joindata , $_POST['email']);
  $sqi = "INSERT INTO usernames (firstname, lastname, email, password)VALUE ('$firstname', '$lastname', '$email', '$hashpassword')";
  if (mysqli_query($joindata, $sqi)) {
    echo "Data saved to database";
+   header('Location: logins.php');
  }
     // echo "My password is". "<h2>$password</h2>" ."<br/>";
     // echo "My FirstName is". "<h2>$firstname</h2>" ."<br/>";

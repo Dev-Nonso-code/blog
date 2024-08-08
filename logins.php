@@ -18,6 +18,14 @@ if(isset($_POST[_("login")])) {
     $result = mysqli_fetch_assoc($response);
 
     if($result && password_verify($password, $result['password'])){
+        session_start();
+        $token = bin2hex(random_bytes(16));
+        $token_expires = time() + 60;
+        $_SESSION['token'] = $token;
+        $_SESSION['email'] = $email;
+        $_SESSION['tokenExp'] = $token_expires;
+
+        header('Location: dashboard.php');
         // Assuming your result array has a password that is a hashed password
         // Always use hashed passwords and PHP's password hashing functions
         print_r($result); // In real world applications, avoid printing the entire result like this for security reasons.
@@ -38,10 +46,14 @@ if(isset($_POST[_("login")])) {
 </head>
 <body>
     <main>
-        <form action="logins.php" method="POST" class="d-block">
-            <input type="email" autocomplete="email" name="email" placeholder="Email" class="m-auto ">
-            <input type="password" name="password" placeholder="Password" autocomplete="current-password">
+        <form action="logins.php" method="POST" class="d-block form-group">
             <div>
+            <input type="email" autocomplete="email" name="email" placeholder="Email" class="m-auto form-control w-50">
+            </div>
+            <div>
+            <input type="password" name="password" placeholder="Password" autocomplete="current-password" class="m-auto form-control w-50">
+            </div>
+            <div class="text-center">
                 <button name="login" class="btn btn-primary">Login</button>
             </div>
         </form>
