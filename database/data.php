@@ -12,7 +12,7 @@
 //  }else{
 //    mysqli_error($mysqli);
 //  }
- $query = "UPDATE users SET email=? WHERE id=?";
+ $query = "UPDATE usernames SET email=? WHERE id=?";
  $stmt = mysqli_prepare($joindata, $query);
 //  mysqli_stmt_bind_param($stmt, "", $email, $userId);
  $email = "rats@gmail.com";

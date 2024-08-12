@@ -1,68 +1,3 @@
-<!-- <?php
-session_start();
-if (isset($_SESSION["email"]) || time() > $_SESSION["tokenExp"]) {
-    session_destroy();
-    header("location: logins.php?message=Your token has expired");
-}else{
-    include("./database/data.php");
-    $user_email = $_SESSION['email'];
-    echo $user_email;
-    $sql = "SELECT * FROM authentication WHERE email='$user_email'";
-    $response = mysql_query($joindata, $sql);
-    $result = mysql_fetch_assoc($response);
-    print_r($result);
-    if($result){
-        $firstname = $result['firstname'];
-        $prof_pix = $result['picture'];
-        $lastname = $result['lastname'];
-    }
-}
-
-if(isset($_POST['update'])){
-    $img_path = "images/";
-    $file = $img_path. basename($_FILES['profile_picture'] ['name']);
-    echo $file;
-    $sql = "UPDATE authentication SET picture='$file' WHERE email='$user_email'";
-    if(mysql_query($joindata, $sql)){
-        move_uploaded_file($_FILES['profile_picture'] ['tmp_name'], $file);
-        echo "Profile Picture Updated";
-        header("location: dashboard.php?message=profile picture updated successfully");
-
-    }else{
-        echo mysqli_error($joindata). "cannot upload image";
-    }
-}
-
-
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h2>Welcome To Dashboard</h2>
-    <h1>
-        <?php echo ($firstname. "<br/>");
-        echo ($user_email); ?>
-    </h1>
-
-    <form action="dashboard.php" method="POST">
-        <input type="file" name="profile-picture">
-        <div class="text-center">
-            <button name="update" class="btn btn-primary m-auto">Update</button>
-        </div>
-    </form>
-
-    <form action="dashboard.php">
-        <button name="logout">Logout</button>
-    </form>
-</body>
-</html> -->
-
 <?php
  session_start();
  include("./database/data.php");
@@ -77,13 +12,13 @@ if (!isset($_SESSION['email']) || time() > $_SESSION["tokenExp"]) {
 } else {
     $user_email = $_SESSION['email'];
     $sql = "SELECT * FROM user WHERE email ='$user_email'";
-    $response= mysqli_query($conn, $sql);
+    $response= mysqli_query($joindata, $sql);
     $result = mysqli_fetch_assoc($response);
     print_r($result);
     if ($result) {
         $user_id = $result['id'];
-        $firstName = $result['first_name'];
-        $lastName = $result['last_name'];
+        $firstname = $result['first_name'];
+        $lastname = $result['last_name'];
         $prof_pix = $result['avatar'];
     }
 
